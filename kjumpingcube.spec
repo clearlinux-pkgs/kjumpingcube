@@ -5,22 +5,22 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kjumpingcube
-Version  : 18.08.0
-Release  : 1
-URL      : https://download.kde.org/stable/applications/18.08.0/src/kjumpingcube-18.08.0.tar.xz
-Source0  : https://download.kde.org/stable/applications/18.08.0/src/kjumpingcube-18.08.0.tar.xz
-Source99 : https://download.kde.org/stable/applications/18.08.0/src/kjumpingcube-18.08.0.tar.xz.sig
+Version  : 18.12.2
+Release  : 2
+URL      : https://download.kde.org/stable/applications/18.12.2/src/kjumpingcube-18.12.2.tar.xz
+Source0  : https://download.kde.org/stable/applications/18.12.2/src/kjumpingcube-18.12.2.tar.xz
+Source99 : https://download.kde.org/stable/applications/18.12.2/src/kjumpingcube-18.12.2.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GFDL-1.2 GPL-2.0
-Requires: kjumpingcube-bin
-Requires: kjumpingcube-data
-Requires: kjumpingcube-license
-Requires: kjumpingcube-locales
+Requires: kjumpingcube-bin = %{version}-%{release}
+Requires: kjumpingcube-data = %{version}-%{release}
+Requires: kjumpingcube-license = %{version}-%{release}
+Requires: kjumpingcube-locales = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
 BuildRequires : libkdegames-dev
-BuildRequires : qtbase-dev qtbase-extras mesa-dev
+BuildRequires : qtbase-dev mesa-dev
 
 %description
 KJumpingCube
@@ -30,8 +30,8 @@ Matthias Kiefer <matthias.kiefer@gmx.de>
 %package bin
 Summary: bin components for the kjumpingcube package.
 Group: Binaries
-Requires: kjumpingcube-data
-Requires: kjumpingcube-license
+Requires: kjumpingcube-data = %{version}-%{release}
+Requires: kjumpingcube-license = %{version}-%{release}
 
 %description bin
 bin components for the kjumpingcube package.
@@ -70,26 +70,26 @@ locales components for the kjumpingcube package.
 
 
 %prep
-%setup -q -n kjumpingcube-18.08.0
+%setup -q -n kjumpingcube-18.12.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535230235
-mkdir clr-build
+export SOURCE_DATE_EPOCH=1549869089
+mkdir -p clr-build
 pushd clr-build
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1535230235
+export SOURCE_DATE_EPOCH=1549869089
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/kjumpingcube
-cp COPYING %{buildroot}/usr/share/doc/kjumpingcube/COPYING
-cp COPYING.DOC %{buildroot}/usr/share/doc/kjumpingcube/COPYING.DOC
+mkdir -p %{buildroot}/usr/share/package-licenses/kjumpingcube
+cp COPYING %{buildroot}/usr/share/package-licenses/kjumpingcube/COPYING
+cp COPYING.DOC %{buildroot}/usr/share/package-licenses/kjumpingcube/COPYING.DOC
 pushd clr-build
 %make_install
 popd
@@ -114,6 +114,7 @@ popd
 /usr/share/icons/hicolor/64x64/apps/kjumpingcube.png
 /usr/share/kjumpingcube/pics/default.desktop
 /usr/share/kjumpingcube/pics/default.svg
+/usr/share/metainfo/org.kde.kjumpingcube.appdata.xml
 
 %files doc
 %defattr(0644,root,root,0755)
@@ -147,9 +148,9 @@ popd
 /usr/share/doc/HTML/uk/kjumpingcube/settings.png
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/kjumpingcube/COPYING
-/usr/share/doc/kjumpingcube/COPYING.DOC
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/kjumpingcube/COPYING
+/usr/share/package-licenses/kjumpingcube/COPYING.DOC
 
 %files locales -f kjumpingcube.lang
 %defattr(-,root,root,-)
